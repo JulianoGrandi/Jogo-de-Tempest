@@ -3,28 +3,45 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Reino Slime</title>
+  <meta name="theme-color" content="#102f55">
+  <title>Reino Slime — Tempest</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main>
-    <div class="topo">
-      <h1>🟦 Reino Slime</h1>
-      <button data-acao="reiniciar:x">Reiniciar</button>
-    </div>
-
-    <div id="recursos"></div>
-
-    <nav>
-      <button class="aba" data-acao="aba:cidade">🏘️ Cidade</button>
-      <button class="aba" data-acao="aba:personagens">⚔️ Personagens</button>
-      <button class="aba" data-acao="aba:aliancas">🤝 Alianças</button>
+  <header class="cabecalho">
+    <a class="marca painel" href="./index.html" aria-label="Reino Slime, início">
+      <img class="logo" src="icon/mascote_slime.png" alt="">
+      <div><h1>Reino Slime <span aria-hidden="true">♛</span></h1><p>— Tempest, um reino para todos. —</p></div>
+    </a>
+    <nav class="menu" aria-label="Navegação principal">
+      <button class="aba" data-acao="aba:cidade"><img src="icon/edificio_castelo.png" alt=""><span>Cidade</span></button>
+      <button class="aba" data-acao="aba:personagens"><img src="icon/icone_personagens.png" alt=""><span>Personagens</span></button>
+      <button class="aba" data-acao="aba:aliancas"><img src="icon/icone_alianca.png" alt=""><span>Alianças</span></button>
     </nav>
-
-    <div id="conteudo"></div>
-    <div id="log"></div>
+    <button class="reiniciar painel" data-acao="reiniciar:x"><span aria-hidden="true">⟳</span> Reiniciar</button>
+  </header>
+  <main class="painel-reino">
+    <aside class="recursos painel" aria-labelledby="titulo-recursos">
+      <h2 id="titulo-recursos">Recursos</h2>
+      <div id="recursos"></div>
+    </aside>
+    <section class="area-conteudo" aria-labelledby="titulo-secao">
+      <div class="titulo-secao"><h2 id="titulo-secao">Sua cidade</h2><span id="resumo-secao"></span></div>
+      <div id="conteudo"></div>
+    </section>
+    <aside class="conselheiro" aria-label="Conselho do reino">
+      <img src="icon/slime.png" alt="Slime sorridente">
+      <div class="painel"><img src="icon/icone_coroa.png" alt=""><p>Tudo está indo bem!<br>Seu reino cresce forte.</p></div>
+    </aside>
+    <section class="historico painel" aria-labelledby="titulo-historico">
+      <h2 id="titulo-historico">Acontecimentos do reino</h2>
+      <div id="log" role="log"></div>
+    </section>
   </main>
-
+  <!-- A ordem importa: dados → regras → interface → inicialização. -->
+  <script src="js/dados.js" defer></script>
+  <script src="js/reino.js" defer></script>
+  <script src="js/interface.js" defer></script>
   <script src="game.js" defer></script>
 </body>
 </html>

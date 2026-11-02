@@ -1,178 +1,97 @@
-/* ============================================================
-   REINO SLIME - ESTILO
-   ============================================================ */
-
-/* ---------- 1. Cores (variáveis) ----------
-   Mude as cores aqui e o jogo inteiro muda. */
+/* 1. Tema e base */
 :root {
-  --fundo: #f4f6fb;
-  --cartao: #ffffff;
-  --texto: #1d2433;
-  --texto-suave: #667089;
-  --destaque: #3b82f6;
-  --destaque2: #8b5cf6;
-  --borda: #dde3ef;
-  --ok: #16a34a;
-
-  /* Espaço extra em celulares com "notch" */
-  padding-top: env(safe-area-inset-top, 0px);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  color-scheme: dark;
+  --texto: #f2f7ff;
+  --suave: #c1d2e9;
+  --borda: #61c8ff;
+  --painel: linear-gradient(120deg, #071b35ed, #122d52d9);
+  --brilho: 0 0 14px #39b9ff50, inset 0 0 20px #2771b52b;
 }
-
-/* Modo escuro automático (segue o sistema do usuário) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --fundo: #10141f;
-    --cartao: #1a2030;
-    --texto: #e8ecf5;
-    --texto-suave: #93a0bd;
-    --destaque: #60a5fa;
-    --destaque2: #a78bfa;
-    --borda: #2a3350;
-    --ok: #4ade80;
-  }
-}
-
-/* ---------- 2. Base ---------- */
 * { box-sizing: border-box; }
-
 body {
   margin: 0;
-  background: var(--fundo);
+  min-height: 100vh;
   color: var(--texto);
-  font: 15px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: linear-gradient(#08274c22, #061d3d44), url('assets/tempest.png') center / cover fixed, #17446b;
+  font: 15px/1.45 'Segoe UI', sans-serif;
 }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { font: inherit; cursor: pointer; }
+button:focus-visible, a:focus-visible { outline: 3px solid #fff0a8; outline-offset: 5px; }
+button:disabled { opacity: .48; cursor: not-allowed; }
+h1, h2, p { margin: 0; }
+.painel, .cartao { background: var(--painel); border: 1px solid #64c8ffb0; border-radius: 22px; box-shadow: var(--brilho); }
+.ico { width: 25px; height: 25px; object-fit: contain; vertical-align: middle; }
 
-main {
-  max-width: 760px;
-  margin: 0 auto;   /* centraliza */
-  padding: 14px;
-}
+/* 2. Cabeçalho e navegação */
+.cabecalho { display: flex; align-items: center; gap: 18px; padding: 16px 24px; border-bottom: 1px solid #80d7ff99; background: linear-gradient(#073065a6, #08244855); }
+.marca { display: flex; align-items: center; gap: 12px; padding: 8px 24px 8px 12px; text-decoration: none; color: inherit; flex-shrink: 0; }
+.logo { width: 100px; height: 90px; object-fit: contain; }
+h1 { font: bold 32px Georgia, serif; } h1 span { color: #ffdc8c; }
+.marca p { color: #b9e8ff; font: italic 14px Georgia, serif; margin-top: 5px; }
+.menu { display: flex; align-self: end; gap: 5px; flex: 1; max-width: 690px; }
+.aba { position: relative; flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 63px; border: 1px solid #8fdcff; border-radius: 22px 22px 7px 7px; color: white; background: #0c284edb; font: 21px Georgia, serif; box-shadow: var(--brilho); }
+.aba img { width: 36px; height: 36px; object-fit: contain; }
+.aba.ativa { background: linear-gradient(#59d7ffdb, #0878eaf2); box-shadow: 0 0 15px #47cbff, inset 0 0 15px #a9edff; border-color: #c4f5ff; }
+.reiniciar { margin-left: auto; padding: 8px 16px; color: white; white-space: nowrap; }
+.reiniciar span { font-size: 24px; vertical-align: middle; margin-right: 5px; }
 
-h1 { font-size: 22px; margin: 4px 0 12px; }
-h2 { font-size: 16px; margin: 18px 0 8px; color: var(--texto-suave); }
-
-/* ---------- 3. Barra de recursos ---------- */
-#recursos {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.pilula {
-  flex: 1;
-  min-width: 130px;
-  background: var(--cartao);
-  border: 1px solid var(--borda);
-  border-radius: 12px;
-  padding: 8px 10px;
-  display: flex;
-  flex-direction: column;
-}
-.pilula b { font-size: 18px; }
-.pilula small { color: var(--texto-suave); }
-
-/* ---------- 4. Abas ---------- */
-nav { display: flex; gap: 6px; margin: 14px 0; }
-
-.aba {
-  flex: 1;
-  padding: 9px;
-  border: 1px solid var(--borda);
-  background: var(--cartao);
-  color: var(--texto);
-  border-radius: 10px;
-  cursor: pointer;
-  font: inherit;
-}
-/* Aba selecionada (a classe "ativa" é colocada pelo JavaScript) */
-.aba.ativa {
-  background: linear-gradient(135deg, var(--destaque), var(--destaque2));
-  color: #fff;
-  border-color: transparent;
-}
-
-/* ---------- 5. Cartões ---------- */
-.cartao {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  background: var(--cartao);
-  border: 1px solid var(--borda);
-  border-radius: 14px;
-  padding: 12px;
-  margin-bottom: 10px;
-}
-/* Variação: conteúdo empilhado na vertical (usada nos personagens) */
+/* 3. Painel: recursos à esquerda, cidade à direita */
+.painel-reino { display: grid; grid-template-columns: 260px minmax(80px, 1fr) minmax(470px, 540px); grid-template-rows: auto auto; gap: 22px; padding: 36px 24px 24px; max-width: 1920px; margin: auto; }
+.recursos { grid-column: 1; grid-row: 1; align-self: start; padding: 18px; }
+.recursos h2 { font: 27px Georgia, serif; color: #b5e9ff; border-bottom: 1px solid #69c8ff; padding: 0 4px 12px; }
+.pilula { display: flex; align-items: center; gap: 16px; padding: 22px 0; border-bottom: 1px solid #7ac8ff40; }
+.pilula:last-child { border-bottom: 0; padding-bottom: 4px; }
+.recurso-imagem .ico { width: 80px; height: 86px; }
+.recurso-valores { display: flex; flex-direction: column; }
+.recurso-valores span { font-size: 16px; } .recurso-valores b { font-size: 28px; } .recurso-valores small { font-size: 17px; font-weight: 650; color: #65fba8; }
+.area-conteudo { grid-column: 3; grid-row: 1 / 3; min-width: 0; }
+.titulo-secao { display: flex; align-items: center; justify-content: space-between; padding: 0 10px 10px; text-shadow: 0 2px 6px #00152d; }
+.titulo-secao h2 { font-size: 17px; } .titulo-secao > span { font-size: 12px; }
+#conteudo { display: grid; gap: 8px; }
+#conteudo > h2 { padding: 12px; background: #092447d9; border-radius: 12px; font-size: 17px; }
+.cartao { display: flex; align-items: center; gap: 14px; padding: 14px; min-height: 116px; }
+.icone { flex-shrink: 0; width: 90px; height: 84px; display: grid; place-items: center; font-size: 40px; }
+.icone .ico { width: 100%; height: 100%; object-fit: contain; }
+.info { flex: 1; min-width: 0; } .info b { font-size: 18px; }
+.info p { font-size: 14px; color: var(--suave); margin-top: 4px; }
+.etiqueta { display: inline-block; background: #284772; border-radius: 8px; padding: 0 6px; font-size: 12px; margin-left: 6px; white-space: nowrap; }
+.custo { color: white !important; display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.cartao button { border: 1px solid #b2f2ff; border-radius: 13px; background: linear-gradient(#124cd7, #0471f0); box-shadow: 0 0 8px #00aaff, inset 0 0 8px #70caff; padding: 10px 14px; color: white; }
+.cartao button:hover:not(:disabled) { filter: brightness(1.2); }
+.cartao button .ico { display: none; }
 .cartao.coluna { flex-direction: column; align-items: stretch; }
+.topo { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.barra { height: 7px; margin: 8px 0; border-radius: 6px; background: #041932; overflow: hidden; }
+.barra i { display: block; height: 100%; background: linear-gradient(90deg, #47bbff, #b2a0ff); }
+.linha { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-block; border: 1px solid #54779b; border-radius: 8px; padding: 3px 7px; margin: 3px; font-size: 12px; color: var(--suave); }
+.chip.desbloqueada { color: #8bffbd; border-color: #7cd5aa; }
 
-.icone { font-size: 30px; width: 44px; text-align: center; }
+/* 4. Mascote e acontecimentos */
+.conselheiro { grid-column: 1; grid-row: 2; align-self: end; }
+.conselheiro > img { width: 150px; height: 120px; object-fit: contain; margin-left: 8px; margin-bottom: -18px; }
+.conselheiro .painel { position: relative; display: flex; align-items: center; gap: 12px; padding: 18px 12px; }
+.conselheiro .painel img { width: 40px; height: 40px; object-fit: contain; } .conselheiro p { font-size: 14px; }
+.historico { grid-column: 2; grid-row: 2; align-self: end; padding: 18px 22px; min-width: 0; }
+.historico h2 { font-size: 13px; color: #9ddfff; margin-bottom: 8px; }
+#log { font-size: 13px; color: #dfebfa; } #log div { padding: 3px 0; overflow-wrap: anywhere; }
 
-.info { flex: 1; min-width: 0; }
-.info p { margin: 2px 0; color: var(--texto-suave); font-size: 13px; }
-
-.etiqueta {
-  font-size: 12px;
-  background: var(--borda);
-  border-radius: 20px;
-  padding: 1px 8px;
-  margin-left: 4px;
+/* 5. Tablet e celular */
+@media (max-width: 1200px) {
+ .cabecalho { flex-wrap: wrap; gap: 12px; } .marca { margin-right: auto; } .menu { order: 3; max-width: none; flex-basis: 100%; } .aba { min-height: 52px; font-size: 18px; }
+ .painel-reino { grid-template-columns: 220px 1fr; gap: 18px; padding: 24px 18px; }
+ .area-conteudo { grid-column: 2; grid-row: 1 / 3; } .historico { grid-column: 1 / -1; grid-row: 3; }
+ .recurso-imagem .ico { width: 60px; height: 70px; } .cartao { gap: 10px; } .icone { width: 70px; }
 }
-
-/* !important porque ".info p" acima é mais específico */
-.custo { font-size: 13px !important; color: var(--texto) !important; }
-
-/* ---------- 6. Botões ---------- */
-button {
-  font: inherit;
-  border: 0;
-  border-radius: 10px;
-  padding: 8px 12px;
-  background: var(--destaque);
-  color: #fff;
-  cursor: pointer;
-}
-button:disabled { opacity: .4; cursor: not-allowed; }
-button.roxo    { background: var(--destaque2); }
-button.evoluir { background: #f59e0b; color: #1d2433; }
-
-.linha { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-
-/* ---------- 7. Barra de XP / relação ---------- */
-.barra {
-  height: 8px;
-  background: var(--borda);
-  border-radius: 6px;
-  overflow: hidden;
-  margin: 6px 0;
-}
-.barra i {
-  display: block;
-  height: 100%;   /* a largura (width) é definida pelo JavaScript */
-  background: linear-gradient(90deg, var(--destaque), var(--destaque2));
-}
-
-/* ---------- 8. Habilidades (chips) ---------- */
-.chip {
-  display: inline-block;
-  font-size: 12px;
-  border: 1px solid var(--borda);
-  border-radius: 20px;
-  padding: 2px 8px;
-  margin: 2px 4px 2px 0;
-  color: var(--texto-suave);
-}
-.chip.desbloqueada { color: var(--ok); border-color: var(--ok); }
-
-/* ---------- 9. Log e topo ---------- */
-#log { font-size: 13px; color: var(--texto-suave); margin-top: 16px; }
-#log div { padding: 2px 0; }
-
-.topo { display: flex; justify-content: space-between; align-items: center; }
-.topo button {
-  background: transparent;
-  color: var(--texto-suave);
-  border: 1px solid var(--borda);
-  font-size: 12px;
-  padding: 4px 8px;
+@media (max-width: 700px) {
+ body { background-position: 40% center; }
+ .cabecalho { padding: 12px; } .marca { padding: 6px 12px 6px 4px; gap: 5px; border-radius: 16px; } .logo { width: 62px; height: 60px; } h1 { font-size: 23px; } .marca p { font-size: 10px; } .reiniciar { font-size: 11px; padding: 7px; } .reiniciar span { font-size: 18px; }
+ .aba { font-size: 15px; flex-direction: column; gap: 2px; padding: 7px 3px; border-radius: 14px; } .aba img { width: 28px; height: 28px; }
+ .painel-reino { display: flex; flex-direction: column; padding: 16px 12px; gap: 18px; }
+ .recursos { width: 100%; padding: 12px; } .recursos h2 { font-size: 20px; padding-bottom: 8px; }
+ #recursos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); } .pilula { flex-direction: column; gap: 2px; padding: 10px 4px !important; border-bottom: 0; border-right: 1px solid #7ac8ff40; text-align: center; } .pilula:last-child { border-right: 0; }
+ .recurso-imagem .ico { width: 48px; height: 46px; } .recurso-valores span { font-size: 12px; } .recurso-valores b { font-size: 22px; } .recurso-valores small { font-size: 13px; }
+ .cartao { padding: 12px; gap: 10px; flex-wrap: wrap; } .icone { width: 64px; height: 70px; } .info b { font-size: 16px; } .info p { font-size: 12px; } .cartao > button { margin-left: auto; font-size: 13px; padding: 8px 10px; }
+ .conselheiro { display: none; } .historico { width: 100%; } .area-conteudo { width: 100%; }
 }
