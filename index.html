@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Reino Slime</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <div class="topo">
+      <h1>🟦 Reino Slime</h1>
+      <button data-acao="reiniciar:x">Reiniciar</button>
+    </div>
+
+    <div id="recursos"></div>
+
+    <nav>
+      <button class="aba" data-acao="aba:cidade">🏘️ Cidade</button>
+      <button class="aba" data-acao="aba:personagens">⚔️ Personagens</button>
+      <button class="aba" data-acao="aba:aliancas">🤝 Alianças</button>
+    </nav>
+
+    <div id="conteudo"></div>
+    <div id="log"></div>
+  </main>
+
+  <script src="game.js" defer></script>
+</body>
+</html>

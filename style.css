@@ -1,0 +1,178 @@
+/* ============================================================
+   REINO SLIME - ESTILO
+   ============================================================ */
+
+/* ---------- 1. Cores (variáveis) ----------
+   Mude as cores aqui e o jogo inteiro muda. */
+:root {
+  --fundo: #f4f6fb;
+  --cartao: #ffffff;
+  --texto: #1d2433;
+  --texto-suave: #667089;
+  --destaque: #3b82f6;
+  --destaque2: #8b5cf6;
+  --borda: #dde3ef;
+  --ok: #16a34a;
+
+  /* Espaço extra em celulares com "notch" */
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Modo escuro automático (segue o sistema do usuário) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fundo: #10141f;
+    --cartao: #1a2030;
+    --texto: #e8ecf5;
+    --texto-suave: #93a0bd;
+    --destaque: #60a5fa;
+    --destaque2: #a78bfa;
+    --borda: #2a3350;
+    --ok: #4ade80;
+  }
+}
+
+/* ---------- 2. Base ---------- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font: 15px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+main {
+  max-width: 760px;
+  margin: 0 auto;   /* centraliza */
+  padding: 14px;
+}
+
+h1 { font-size: 22px; margin: 4px 0 12px; }
+h2 { font-size: 16px; margin: 18px 0 8px; color: var(--texto-suave); }
+
+/* ---------- 3. Barra de recursos ---------- */
+#recursos {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pilula {
+  flex: 1;
+  min-width: 130px;
+  background: var(--cartao);
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+}
+.pilula b { font-size: 18px; }
+.pilula small { color: var(--texto-suave); }
+
+/* ---------- 4. Abas ---------- */
+nav { display: flex; gap: 6px; margin: 14px 0; }
+
+.aba {
+  flex: 1;
+  padding: 9px;
+  border: 1px solid var(--borda);
+  background: var(--cartao);
+  color: var(--texto);
+  border-radius: 10px;
+  cursor: pointer;
+  font: inherit;
+}
+/* Aba selecionada (a classe "ativa" é colocada pelo JavaScript) */
+.aba.ativa {
+  background: linear-gradient(135deg, var(--destaque), var(--destaque2));
+  color: #fff;
+  border-color: transparent;
+}
+
+/* ---------- 5. Cartões ---------- */
+.cartao {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: var(--cartao);
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+/* Variação: conteúdo empilhado na vertical (usada nos personagens) */
+.cartao.coluna { flex-direction: column; align-items: stretch; }
+
+.icone { font-size: 30px; width: 44px; text-align: center; }
+
+.info { flex: 1; min-width: 0; }
+.info p { margin: 2px 0; color: var(--texto-suave); font-size: 13px; }
+
+.etiqueta {
+  font-size: 12px;
+  background: var(--borda);
+  border-radius: 20px;
+  padding: 1px 8px;
+  margin-left: 4px;
+}
+
+/* !important porque ".info p" acima é mais específico */
+.custo { font-size: 13px !important; color: var(--texto) !important; }
+
+/* ---------- 6. Botões ---------- */
+button {
+  font: inherit;
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: var(--destaque);
+  color: #fff;
+  cursor: pointer;
+}
+button:disabled { opacity: .4; cursor: not-allowed; }
+button.roxo    { background: var(--destaque2); }
+button.evoluir { background: #f59e0b; color: #1d2433; }
+
+.linha { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+/* ---------- 7. Barra de XP / relação ---------- */
+.barra {
+  height: 8px;
+  background: var(--borda);
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 6px 0;
+}
+.barra i {
+  display: block;
+  height: 100%;   /* a largura (width) é definida pelo JavaScript */
+  background: linear-gradient(90deg, var(--destaque), var(--destaque2));
+}
+
+/* ---------- 8. Habilidades (chips) ---------- */
+.chip {
+  display: inline-block;
+  font-size: 12px;
+  border: 1px solid var(--borda);
+  border-radius: 20px;
+  padding: 2px 8px;
+  margin: 2px 4px 2px 0;
+  color: var(--texto-suave);
+}
+.chip.desbloqueada { color: var(--ok); border-color: var(--ok); }
+
+/* ---------- 9. Log e topo ---------- */
+#log { font-size: 13px; color: var(--texto-suave); margin-top: 16px; }
+#log div { padding: 2px 0; }
+
+.topo { display: flex; justify-content: space-between; align-items: center; }
+.topo button {
+  background: transparent;
+  color: var(--texto-suave);
+  border: 1px solid var(--borda);
+  font-size: 12px;
+  padding: 4px 8px;
+}
